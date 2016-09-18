@@ -1,0 +1,48 @@
+{
+    "defaultUserDomain": "acmeinc",
+    "roles": {
+        "admin": [{ "domain": "csr", "id": "bill@devops.com" }],
+        "users": [{ "id": "bob@acme.com" }, { "id": "joe@acme.com" }],
+        "monitor": [],
+        "operator": []
+    },
+    "resourceTypes": {
+        "Account": {
+            "allowedActions": ["create", "update", "delete", "read"],
+            "entitlement": {
+                "users": {
+                    "__ALL__": ["read"]
+                },
+                "roles": {
+                    "admin": ["create", "update", "delete", "read"]
+                }
+            }
+        },
+        "Message": {
+            "allowedActions": ["post", "vote", "read"]
+        }
+    },
+    "resources": {
+        "1234": {
+            "type": "Account",
+            "actionList": ["update", "read"],
+            "entitlement": {
+                "users": {
+                    "joe@acme.com": ["update", "read"],
+                    "bob@acme.com": ["create"]
+                },
+                "roles": {
+                    "admin": ["create", "update", "delete", "read"]
+                }
+            }
+        },
+        "4561": {
+            "type": "Account",
+            "actionList": ["update", "read"]
+        },
+        "213123": {
+            "type": "Message",
+            "actionList": ["post", "vote", "read"]
+        }
+    }
+}
