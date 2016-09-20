@@ -7,41 +7,51 @@
         "operator": []
     },
     "resourceTypes": {
-        "Account": {
+        "Accounts": {
             "allowedActions": ["create", "update", "delete", "read"],
-            "entitlement": {
+            "entitlements": {
                 "users": {
-                    "__ALL__": ["read"]
+                    "$ALL": {
+                      "allowedActions": ["read"]
+                    }
                 },
                 "roles": {
-                    "admin": ["create", "update", "delete", "read"]
+                    "admin": {
+                        "allowedActions": ["create", "update", "delete", "read"]
+                    }
                 }
             }
         },
-        "Message": {
+        "Messages": {
             "allowedActions": ["post", "vote", "read"]
         }
     },
     "resources": {
         "1234": {
-            "type": "Account",
+            "type": "Accounts",
             "actionList": ["update", "read"],
-            "entitlement": {
+            "entitlements": {
                 "users": {
-                    "joe@acme.com": ["update", "read"],
-                    "bob@acme.com": ["create"]
+                    "joe@acme.com": {
+                        "allowedActions": ["update", "read"]
+                    },
+                    "bob@acme.com": {
+                        "allowedActions": ["create"]
+                    }
                 },
                 "roles": {
-                    "admin": ["create", "update", "delete", "read"]
+                    "admin": {
+                        "allowedActions": ["create", "update", "delete", "read"]
+                    }
                 }
             }
         },
         "4561": {
-            "type": "Account",
+            "type": "Accounts",
             "actionList": ["update", "read"]
         },
         "213123": {
-            "type": "Message",
+            "type": "Messages",
             "actionList": ["post", "vote", "read"]
         }
     }

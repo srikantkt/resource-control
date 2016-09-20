@@ -7,6 +7,56 @@
 $ npm install --save resource-control
 ```
 
+## Use Cases
+> Special handlers - should there be one explicitly for each or one generic $ALL catch all
+* $ALL_USERS 
+* $ALL_ROLES
+* $ALL_ACTIONS
+* $ALL_RESOURCES
+* $ALL_RESOURCETYPES
+
+
+### [todo]
+Don't have entitlements for resource types. instead have entitlement
+for "$ALL" resource of that resource type
+all users have access to view public recipe catalog; 'admin' role can perform CRUD
+```json
+    "resourceTypes": {
+        "RecipeCatalogs": {
+            "allowedActions": ["create", "update", "delete", "read"],
+            "entitlements": {
+                "users": {
+                    "$ALL": {
+                      "allowedActions": ["read"]
+                      }
+                },
+                "roles": {
+                    "admin": {
+                      "allowedActions": ["create", "update", "delete", "read"]
+                      }
+                }
+            }
+        },
+        "Recipes": {
+            "allowedActions": ["post", "vote", "read"],
+            "entitlements": {
+                "users": {
+                    "$ALL": {
+                      "allowedActions": ["read"]
+                      }
+                }
+            }
+        }
+    }
+```
+
+### all users have access to view cloud apps
+
+### user can CRUD on "My recipe catalog"
+
+### user can CRUD on all recipes where owner = user (all recipes in "My recipe catalog")
+
+
 ## Usage
 
 ```js
