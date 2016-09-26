@@ -1,0 +1,55 @@
+{
+    "defaultUserDomain": "acmeinc",
+    "roles": {
+        "admin": [{ "domain": "csr", "id": "bill@devops.com" }],
+        "users": [{ "id": "bob@acme.com" }, { "id": "joe@acme.com" }],
+        "monitor": [],
+        "operator": []
+    },
+    "resourceTypes": {
+        "RecipeCatalogs": {
+            "allowedActions": ["create", "update", "delete", "read"]
+        },
+        "Recipes": {
+            "allowedActions": ["create", "update", "delete", "read"]
+        }
+    },
+    "resources": {
+      "Recipes": {
+        "$ALL": {
+          "entitlements": {            [
+              "user": "$OWNER", // this is ctxt.jobContext.userId
+              "allowedActions": ["create", "update", "delete", "read"]
+            ]
+           }
+          }
+        }
+      },
+      "RecipeCatalogs": {
+        "RC-1234": {
+            "allowedActions": ["update", "read"],
+            "entitlements": {
+                "users": {
+                    "joe@acme.com": {
+                        "allowedActions": ["update", "read"]
+                    },
+                    "bob@acme.com": {
+                        "allowedActions": ["create"]
+                    }
+                },
+                "roles": {
+                    "admin": {
+                        "allowedActions": ["create", "update", "delete", "read"]
+                    }
+                }
+            }
+        },
+        "RC-4561": {
+            "allowedActions": ["update", "read"]
+        },
+        "RC-213123": {
+            "allowedActions": ["post", "vote", "read"]
+        }
+      }
+    }
+}
