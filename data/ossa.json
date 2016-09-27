@@ -17,9 +17,12 @@
     "resources": {
       "Recipes": {
         "$ALL": {
-          "entitlements": {            [
+          "entitlements": {            
+              [
+              {
               "user": "$OWNER", // this is ctxt.jobContext.userId
               "allowedActions": ["create", "update", "delete", "read"]
+              }
             ]
            }
           }

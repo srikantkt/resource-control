@@ -1,58 +1,120 @@
 {
+    "resourceNamespace": "myApp",
     "defaultUserDomain": "acmeinc",
     "roles": {
-        "admin": [{ "domain": "csr", "id": "bill@devops.com" }],
-        "users": [{ "id": "bob@acme.com" }, { "id": "joe@acme.com" }],
+        "admin": [
+            {
+                "userdomain": "ops",
+                "id": "bill@devops.com"
+            }
+        ],
+        "users": [
+            {
+                "id": "bob@acme.com"
+            },
+            {
+                "id": "joe@acme.com"
+            }
+        ],
         "monitor": [],
         "operator": []
     },
     "resourceTypes": {
         "Accounts": {
-            "allowedActions": ["create", "update", "delete", "read"],
+            "allowedActions": [
+                "create",
+                "update",
+                "delete",
+                "read"
+            ],
             "entitlements": {
                 "users": {
                     "$ALL": {
-                      "allowedActions": ["read"]
+                        "allowedActions": [
+                            "read"
+                        ]
                     }
                 },
                 "roles": {
                     "admin": {
-                        "allowedActions": ["create", "update", "delete", "read"]
+                        "allowedActions": [
+                            "create",
+                            "update",
+                            "delete",
+                            "read"
+                        ]
                     }
                 }
             }
         },
-        "Messages": {
-            "allowedActions": ["post", "vote", "read"]
+        "Offers": {
+            "allowedActions": [
+                "create",
+                "view",
+                "revoke"
+            ]
         }
     },
     "resources": {
-        "1234": {
-            "type": "Accounts",
-            "actionList": ["update", "read"],
-            "entitlements": {
-                "users": {
-                    "joe@acme.com": {
-                        "allowedActions": ["update", "read"]
+        // Model the following
+        // 1. for all resource of type 'Accounts', owner can perform RUD
+        // 2. for all resource of type 'Offers;, all users can view any offer
+        // 3. for all resource of type 'Accounts', only role 'Admin' can create the account
+        "Accounts": {
+            "$ctx.jobctx.userId": {
+                "entitlements": {
+                    "users": {
+                        "$ctx.jobctx.userId": {
+                            "allowedActions": [
+                                "update",
+                                "delete",
+                                "read"
+                            ]
+                        }
                     },
-                    "bob@acme.com": {
-                        "allowedActions": ["create"]
-                    }
-                },
-                "roles": {
-                    "admin": {
-                        "allowedActions": ["create", "update", "delete", "read"]
+                    "roles": {
+                        "admin": {
+                            "allowedActions": ["create"]
+                        }
                     }
                 }
-            }
-        },
-        "4561": {
-            "type": "Accounts",
-            "actionList": ["update", "read"]
+            },
+            "1234": {
+                "entitlements": {
+                    "users": {
+                        "joe@acme.com": {
+                            "allowedActions": [
+                                "update",
+                                "read"
+                            ]
+                        },
+                        "bob@acme.com": {
+                            "allowedActions": [
+                                "create"
+                            ]
+                        }
+                    },
+                    "roles": {
+                        "admin": {
+                            "allowedActions": [
+                                "create",
+                                "update",
+                                "delete",
+                                "read"
+                            ]
+                        }
+                    }
+                }
+            },
+            "4561": {}
         },
         "213123": {
             "type": "Messages",
-            "actionList": ["post", "vote", "read"]
+            "allowedActions": [
+                "post",
+                "vote",
+                "read"
+            ]
         }
     }
 }
