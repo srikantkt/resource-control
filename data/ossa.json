@@ -15,17 +15,41 @@
         }
     },
     "resources": {
-      "Recipes": {
-        "$ALL": {
-          "entitlements": {            [
-              "user": "$OWNER", // this is ctxt.jobContext.userId
+      "Recipes":
+      {
+        "$ALL":
+        {
+          "entitlements":
+          [
+            {
+              "users":
+              {
+                "id": "john.smith@acme.com", // OR
+                "constraint": "$ctx.jobContext.userId == $ctx.recipe.owner"
+              }
               "allowedActions": ["create", "update", "delete", "read"]
-            ]
-           }
-          }
+            }
+          ]
         }
       },
       "RecipeCatalogs": {
+        "$ALL":
+        {
+          "entitlements":
+          [
+            {
+              "users":
+              {
+              },
+              "roles":
+              {
+                "ServiceInstanceAdmin":
+                {
+                }
+              }
+            }
+          ]
+        },
         "RC-1234": {
             "allowedActions": ["update", "read"],
             "entitlements": {
