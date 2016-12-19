@@ -1,0 +1,12 @@
+
+floor1 : [ roomA, roomB, roomC]
+
+
+roomA : { details }
+
+
+resource: { type: document, id: MyPage }
+role: { admin: [user1, user2] }
+grant: { admin: { operation: update, resource: document/MyPage}}
+grant: { user3: { operation: review, resource: document/MyPage}}
+grant: { $all: { operation: read, resource: document/$all}}

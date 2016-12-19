@@ -15,6 +15,7 @@
         }
     },
     "resources": {
+<<<<<<< HEAD
       "Recipes": {
         "$ALL": {
           "entitlements": {            
@@ -26,9 +27,43 @@
             ]
            }
           }
+=======
+      "Recipes":
+      {
+        "$ALL":
+        {
+          "entitlements":
+          [
+            {
+              "users":
+              {
+                "id": "john.smith@acme.com", // OR
+                "constraint": "$ctx.jobContext.userId == $ctx.recipe.owner"
+              }
+              "allowedActions": ["create", "update", "delete", "read"]
+            }
+          ]
+>>>>>>> 98feaca29c86d93c055061b57afc7f20679c11e4
         }
       },
       "RecipeCatalogs": {
+        "$ALL":
+        {
+          "entitlements":
+          [
+            {
+              "users":
+              {
+              },
+              "roles":
+              {
+                "ServiceInstanceAdmin":
+                {
+                }
+              }
+            }
+          ]
+        },
         "RC-1234": {
             "allowedActions": ["update", "read"],
             "entitlements": {

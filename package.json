@@ -16,7 +16,7 @@
         "rbac authorization permission"
     ],
     "dependencies": {
-        "cancan": "^2.1.x"
+        "cancan": "^2.x.x"
     },
     "devDependencies": {
         "eslint": "^3.1.1",
